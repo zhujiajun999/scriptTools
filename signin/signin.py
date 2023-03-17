@@ -1,20 +1,27 @@
+import datetime
 import os
+import sys
 import time
 from interval import Interval
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from settings import *
-import pyautogui as pag
 
 
-class sigin():
+# import pyautogui as pag
+
+
+def sigin(starTimes):
+    starTimes = starTimes[0:2] + ':' + starTimes[2:]
+    print('脚本执行时间：' + starTimes)
+
     while True:
         # 当前时间
-        now_localtime = time.strftime("%H:%M:%S", time.localtime())
+        now_localtime = time.strftime("%H:%M:%S", time.localtime())  # 18:00:00
         # 当前时间（以时间区间的方式表示）
         now_time = Interval(now_localtime, now_localtime)
-        print(now_time)
-        time_interval = Interval(starTimes, endTimes)
+        print('当前时间：' + now_localtime)
+        time_interval = Interval(f'{starTimes}:00', f'{starTimes}:59')  # 脚本执行时间是否在这个区间
 
         # width, height = pyautogui.size() # 屏幕的宽度和高度
         # print(width, height)
@@ -41,7 +48,7 @@ class sigin():
                 time.sleep(2)
             else:  # 识别验证码，后续补充
                 numbers = 0
-            
+
             time.sleep(3)
             if driver.find_element(By.CLASS_NAME, 'ui-dialog-titlebar') != None:
                 break
@@ -49,11 +56,20 @@ class sigin():
             time.sleep(60)
 
     # print(pag.position())
-    driver.close()  # 关闭浏览器
+    print('签到成功,结束时间：' + now_time)
+    # driver.close()  # 关闭浏览器
     # pag.moveTo(0, 1050, duration=2)  # 自己电脑设置左下角触发角锁屏
     os.system("pmset displaysleepnow")  # 锁屏
 
 
-if __name__ == '__main__':
-    sigin()
+def main():
+    if len(sys.argv) < 2:
+        print("python3 sigin.py 18:00\n")
+        sys.exit()
 
+    starTimes = sys.argv[1]
+    sigin(starTimes)
+
+
+if __name__ == '__main__':
+    main()
