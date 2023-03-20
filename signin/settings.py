@@ -5,7 +5,3 @@ url = ''
 username = ''
 password = ''
 
-# 预订执行的时间
-starTimes = ''
-endTimes = ''
-
