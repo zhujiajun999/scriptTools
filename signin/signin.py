@@ -1,11 +1,13 @@
 import datetime
 import os
+import random
 import sys
 import time
 from interval import Interval
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from settings import *
+import pyautogui
 
 
 # import pyautogui as pag
@@ -53,11 +55,12 @@ def sigin(starTimes):
             if driver.find_element(By.CLASS_NAME, 'ui-dialog-titlebar') != None:
                 break
         else:
+            pyautogui.moveTo(x=random.randint(1000,1500),y=random.randint(500,800), duration=1)
             time.sleep(60)
 
     # print(pag.position())
     print('签到成功,结束时间：' + now_localtime)
-    # driver.close()  # 关闭浏览器
+    driver.close()  # 关闭浏览器
     # pag.moveTo(0, 1050, duration=2)  # 自己电脑设置左下角触发角锁屏
     os.system("pmset displaysleepnow")  # 锁屏
 
