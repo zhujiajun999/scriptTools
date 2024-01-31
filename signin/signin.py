@@ -61,8 +61,8 @@ def sigin(starTimes):
     # print(pag.position())
     print('签到成功,结束时间：' + now_localtime)
     driver.close()  # 关闭浏览器
-    # pag.moveTo(0, 1050, duration=2)  # 自己电脑设置左下角触发角锁屏
     os.system("pmset displaysleepnow")  # 锁屏
+    # os.system("sudo shutdown -h now")  # 关机 需要密码 无法 os.sys输出
 
 
 def main():
